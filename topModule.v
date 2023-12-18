@@ -8,7 +8,7 @@ module TopModule(
     output [7:0] led_output,  // LED output from led.v
     output buzzer_output,     // Buzzer output from buzzer.v
     output [6:0] segment_output, // Segment output for display
-    output [2:0] digit_select_output // Digit select output for display
+    output [1:0] digit_select_output // Digit select output for display
 );
 
 // Inter-module signals
