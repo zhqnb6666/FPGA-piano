@@ -49,7 +49,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports {led_output[5]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led_output[6]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led_output[7]}]
 # Buzzer output
-set_property PACKAGE_PIN T1 [get_ports {buzzer_output}]
+set_property PACKAGE_PIN H17 [get_ports {buzzer_output}]
 set_property IOSTANDARD LVCMOS33 [get_ports {buzzer_output}]
 
 # Display Segment and Digit Select Output
