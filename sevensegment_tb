@@ -1,0 +1,55 @@
+`timescale 1ns / 1ps
+
+module DisplayCounter_tb;
+
+// Inputs
+reg clk;
+reg rst;
+reg [6:0] counter_value;
+
+// Outputs
+wire [6:0] seg;
+wire [2:0] digit_select;
+
+// Instantiate the Unit Under Test (UUT)
+DisplayCounter uut (
+    .clk(clk), 
+    .rst(rst), 
+    .counter_value(counter_value), 
+    .seg(seg), 
+    .digit_select(digit_select)
+);
+
+initial begin
+    // Initialize Inputs
+    clk = 0;
+    rst = 1;
+    counter_value = 0;
+
+    // Wait 100 ns for global reset to finish
+    #100;
+    rst = 0;
+
+    // Test Case 1: Increment counter_value
+    counter_value = 7'b0000001;
+    #100;
+
+    // Test Case 2: Further increment counter_value
+    counter_value = 7'b0000010;
+    #100;
+
+    // Test Case 3: Reset the module
+    rst = 1;
+    #20;
+    rst = 0;
+    #100;
+
+    // Add more test cases as necessary
+    
+
+
+end
+
+always #10 clk = ~clk; // Generate clock signal with period 20 ns
+
+endmodule
