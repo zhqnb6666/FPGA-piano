@@ -5,7 +5,6 @@ module buzzer (
     input [4:0] key,
     output reg buzzer
 );
-reg counter_on;
 reg [31:0] counter;
 reg [31:0] freq [16:0]; 
 
@@ -35,7 +34,7 @@ always @(posedge clk or posedge rst) begin
     end else if (counter >= freq[key]) begin
         counter <= 0;
         buzzer <= ~buzzer;
-    end else if(counter_on)begin
+    end else if(key_on)begin
         counter <= counter + 1;
     end else begin
         counter <= 0;
