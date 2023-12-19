@@ -49,15 +49,15 @@ module DisplayCounter (
     case (counter_select)
        1'b0:  begin
         seg <= seg_0;
-        digit_select <= 3'b01;
+        digit_select <= 2'b01;
         end
         1'b1:  begin
         seg <= seg_1;
-        digit_select <= 3'b10;
+        digit_select <= 2'b10;
         end
         default: begin
         seg <= 7'b0000000;
-        digit_select <= 3'b00;
+        digit_select <= 2'b00;
         end
     endcase
   end
