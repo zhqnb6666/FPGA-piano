@@ -10,7 +10,18 @@ reg [25:0] durations[0:23];
 integer i = 0; 
 reg [25:0] counter = 0; 
 
-initial begin
+parameter [3:0] song[0:25] = {
+        4'd2, 4'd2, 4'd3, 4'd4, 4'd4, 4'd3, 4'd2, 4'd1, 4'd0, 4'd0,
+        4'd1, 4'd2, 4'd2, 4'd1, 4'd1, 4'd2, 4'd4, 4'd3, 4'd2, 4'd1,
+        4'd0, 4'd0, 4'd1, 4'd2, 4'd1, 4'd0
+    };
+
+parameter [25:0] durations[0:25] = {
+        50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000,
+        50000000, 50000000, 75000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000,
+        50000000, 50000000, 50000000, 50000000, 75000000, 75000000
+    };
+/*initial begin
     // "Ode to Joy" melody with varied durations
     song[0] = 5'd2;  durations[0] = 50000000;  // E
     song[1] = 5'd2;  durations[1] = 50000000;  // E
@@ -39,7 +50,7 @@ initial begin
     song[24] = 5'd1; durations[24] = 75000000; // D (longer duration)
     song[25] = 5'd0; durations[25] = 75000000; // C (longer duration)
     // Continue with the rest of the song or repeat the above
-end
+end*/
 
 
 
