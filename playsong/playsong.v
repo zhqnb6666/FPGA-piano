@@ -12,8 +12,12 @@ assign duration = 7'd12;
 reg [3:0] song[0:23]; // Adjusted length for the song
 integer i = 0;
 reg [25:0] counter = 0; // Duration counter
-
-initial begin
+parameter [3:0] song[0:23] = {
+    4'd0, 4'd0, 4'd4, 4'd4, 4'd5, 4'd5, 4'd4, 4'd3,
+    4'd3, 4'd2, 4'd2, 4'd1, 4'd1, 4'd0, 4'd4, 4'd4,
+    4'd3, 4'd3, 4'd2, 4'd2, 4'd1, 4'd1, 4'd0, 4'd0
+};
+/*initial begin
     // "Twinkle, Twinkle, Little Star" notes (simplified)
     // Each pair of notes is the same, representing one syllable
     song[0] = 5'd0;  // C
@@ -40,7 +44,7 @@ initial begin
     song[21] = 5'd1; // D
     song[22] = 5'd0; // C
     song[23] = 5'd0; // C
-end
+end*/
 
 always @(posedge clk or posedge rst) begin
     if (rst) begin
