@@ -10,7 +10,21 @@ reg [25:0] durations[0:23];
 integer i = 0; 
 reg [25:0] counter = 0; 
 
-initial begin
+parameter [3:0] song[0:23] = {
+        4'd0, 4'd0, 4'd2, 4'd0, 4'd5, 4'd4,
+        4'd0, 4'd0, 4'd2, 4'd0, 4'd7, 4'd5,
+        4'd0, 4'd0, 4'd14, 4'd10, 4'd5, 4'd4, 4'd7,
+        4'd9, 4'd10, 4'd5, 4'd7, 4'd4
+    };
+
+parameter [25:0] durations[0:23] = {
+        50000000, 50000000, 50000000, 50000000, 50000000, 100000000,
+        50000000, 50000000, 50000000, 50000000, 50000000, 100000000,
+        50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000,
+        50000000, 50000000, 50000000, 50000000, 100000000
+    };
+    
+/*initial begin
     // "Happy Birthday" melody
     // Notes are represented with indices; higher octave notes are 7 indices higher
     song[0] = 5'd0;  durations[0] = 50000000;  // C
@@ -40,7 +54,7 @@ initial begin
     song[21] = 5'd5; durations[21] = 50000000;  // A (higher octave)
     song[22] = 5'd7; durations[22] = 50000000;  // C5 (higher octave)
     song[23] = 5'd4; durations[23] = 100000000; // G
-end
+end*/
 
 
 
