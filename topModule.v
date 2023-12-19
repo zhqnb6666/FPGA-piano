@@ -6,17 +6,24 @@ module TopModule(
     input key_on,             // Key on signal from keyControl.v
     // Other global inputs like switches, buttons, etc.
     output [7:0] led_output,  // LED output from led.v
+    output higher_8_led,      // Higher 8 bits of LED output
     output buzzer_output,     // Buzzer output from buzzer.v
     output [6:0] segment_output, // Segment output for display
     output [1:0] digit_select_output // Digit select output for display
+    
 );
 
 // Inter-module signals
 // wire [3:0] current_track;
 wire [3:0] key_out;
+wire [3:0] note_out;
 wire key_out_on;
+wire note_out_on;
 wire [6:0] counter_value;
-assign counter_value = key_out;
+wire [6:0] time_in;
+wire [6:0] time_out;
+// assign counter_value = key_out;
+assign time_in = counter_value;
 
 
 
@@ -35,17 +42,34 @@ keyControl keyControlModule(
 ledControl ledModule(
     .clk(clk),
     .rst(rst),
-    .current_track(key_out), // Connected from keyControlModule
-    .playing(key_on),
-    .led_output(led_output)
+    .current_track(note_out), // Connected from keyControlModule
+    .playing(note_out_on),    // Connected from keyControlModule
+    .led_output(led_output),
+    .higher_8_led(higher_8_led)
+);
+
+PlaySong playSongModule(
+    .clk(clk),
+    .rst(rst),
+    .key_on(note_out_on), // Connected from keyControlModule
+    .key(note_out),      // Connected from keyControlModule
+    .duration(counter_value)
+);
+
+timer timerModule(
+    .clk(clk),
+    .rst(rst),
+    .time_on(key_on), // Connected from keyControlModule
+    .time_in(time_in),
+    .time_out(time_out)
 );
 
 // Instantiate buzzer module
 buzzer buzzerModule(
     .clk(clk),
     .rst(rst),
-    .key_on(key_out_on), // Connected from keyControlModule
-    .key(key_out),       // Connected from keyControlModule
+    .key_on(note_out_on), // Connected from keyControlModule
+    .key(note_out),       // Connected from keyControlModule
     .buzzer(buzzer_output)
 );
 
@@ -53,7 +77,7 @@ buzzer buzzerModule(
 DisplayCounter displayCounterModule(
     .clk(clk),
     .rst(rst),
-    .counter_value(counter_value),
+    .counter_value(time_out),
     .seg(segment_output),
     .digit_select(digit_select_output)
 );
