@@ -43,17 +43,18 @@ ledControl ledModule(
     .clk(clk),
     .rst(rst),
     .current_track(note_out), // Connected from keyControlModule
-    .playing(note_out_on),    // Connected from keyControlModule
+    .playing(key_on),    // Connected from keyControlModule
     .led_output(led_output),
     .higher_8_led(higher_8_led)
 );
 
+// Instantiate PlaySong module
 PlaySong playSongModule(
     .clk(clk),
     .rst(rst),
-    .key_on(note_out_on), // Connected from keyControlModule
-    .key(note_out),      // Connected from keyControlModule
-    .duration(counter_value)
+    .correct_key_press(correct_key_press),
+    .key_on(note_out_on),
+    .key(note_out)
 );
 
 timer timerModule(
@@ -62,6 +63,15 @@ timer timerModule(
     .time_on(key_on), // Connected from keyControlModule
     .time_in(time_in),
     .time_out(time_out)
+);
+
+// Instantiate key_examine module
+key_examine keyExamineModule(
+    .clk(clk),
+    .rst(rst),
+    .key_in(key_out),
+    .correct_key(note_out),
+    .correct_key_press(correct_key_press)
 );
 
 // Instantiate buzzer module
