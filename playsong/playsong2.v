@@ -10,7 +10,18 @@ reg [25:0] durations[0:23];
 integer i = 0; 
 reg [25:0] counter = 0; 
 
-initial begin
+parameter [3:0] song[0:23] = {
+    4'd2, 4'd1, 4'd0, 4'd1, 4'd2, 4'd2, 4'd2, 4'd1,
+    4'd1, 4'd1, 4'd2, 4'd4, 4'd4, 4'd2, 4'd1, 4'd0,
+    4'd1, 4'd2, 4'd2, 4'd2, 4'd1, 4'd2, 4'd1, 4'd0
+};
+
+parameter [25:0] durations[0:23] = {
+    25000000, 75000000, 25000000, 25000000, 25000000, 25000000, 75000000, 25000000,
+    25000000, 75000000, 25000000, 75000000, 25000000, 25000000, 75000000, 25000000,
+    25000000, 25000000, 25000000, 75000000, 25000000, 25000000, 75000000, 25000000
+};
+/*initial begin
     // "Mary Had a Little Lamb" with varied durations
     song[0] = 5'd2;  durations[0] = 25000000;  // E, short
     song[1] = 5'd1;  durations[1] = 75000000;  // D, long
@@ -35,7 +46,7 @@ initial begin
     song[20] = 5'd2; durations[20] = 25000000; // E, short
     song[21] = 5'd1; durations[21] = 75000000; // D, long
     song[22] = 5'd0; durations[22] = 25000000; // C, short
-end
+end*/
 
 
 
