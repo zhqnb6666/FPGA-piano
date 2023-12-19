@@ -11,7 +11,23 @@ reg [25:0] durations[0:23];
 integer i = 0; 
 reg [25:0] counter = 0; 
 
-initial begin
+parameter [3:0] song[0:10] = {
+        4'd4, 4'd4, 4'd4, 4'd4, 4'd4, 4'd4, 4'd4, 4'd2, 4'd7, 4'd0, 4'd4
+    };
+
+parameter [25:0] durations[0:10] = {
+        50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 100000000, 50000000, 100000000
+    };
+
+    // "Jingle all the way"
+parameter [3:0] song[11:25] = {
+        4'd9, 4'd9, 4'd9, 4'd9, 4'd9, 4'd7, 4'd7, 4'd7, 4'd7, 4'd7, 4'd4, 4'd4, 4'd4, 4'd4, 4'd2
+    };
+
+parameter [25:0] durations[11:25] = {
+        50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 50000000, 100000000
+    };   
+/*initial begin
     // "Jingle Bells" chorus with varied durations
     // Note: Durations are longer due to the 100MHz clock frequency
 
@@ -44,7 +60,7 @@ initial begin
     song[23] = 5'd4; durations[23] = 50000000; // E
     song[24] = 5'd4; durations[24] = 50000000; // D
     song[25] = 5'd2; durations[25] = 100000000; // G
-end
+end*/
 
 
 
