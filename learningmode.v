@@ -19,6 +19,7 @@ wire [3:0] key_out;
 wire [3:0] note_out;
 wire key_out_on;
 wire note_out_on;
+wire [3:0] correct_key_press;
 wire [6:0] counter_value;
 wire [6:0] time_in;
 wire [6:0] time_out;
