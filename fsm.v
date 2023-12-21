@@ -19,11 +19,11 @@ always@(state,x_in)
 begin
     case (state)
         FREE_MODE,AUTO_PLAY_MODE,LEARNING_MODE: if(x_in==FREE_MODE||x_in==AUTO_PLAY_MODE||x_in==LEARNING_MODE) begin next_state<=x_in; mode_led_1_2_3<=x_in; end 
-        else  begin next_state<=WRONG_STATE; mode_led_1_2_3<=WRONG_STATE end
+        else  begin next_state<=WRONG_STATE; mode_led_1_2_3<=WRONG_STATE; end
         default: 
         begin
         next_state<=WRONG_STATE;
-        mode_led_1_2_3<=WRONG_STATE
+        mode_led_1_2_3<=WRONG_STATE;
         end
     endcase
 end
