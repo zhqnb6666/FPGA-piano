@@ -5,7 +5,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports {clk}]
 # Reset signal
 set_property PACKAGE_PIN V5 [get_ports {rst}]
 set_property IOSTANDARD LVCMOS33 [get_ports {rst}]
-set_property PACKAGE_PIN J3 [get_ports {rst_led_output}]
+set_property PACKAGE_PIN J5 [get_ports {rst_led_output}]
 set_property IOSTANDARD LVCMOS33 [get_ports {rst_led_output}]
 
 # Key input
