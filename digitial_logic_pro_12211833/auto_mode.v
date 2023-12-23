@@ -3,6 +3,7 @@ module auto_mode(
     input rst,
     input [3:0] note_value,
     input [25:0] duration_value,
+    input comfirm_button,
 
     output [4:0] nxt_auto_memory_location,
     output [7:0] led_output,  // 8 big LED from F6 to K2 
@@ -18,8 +19,9 @@ wire [3:0] auto_key;// note value
 auto_part_1 auto_part_1_impl(
     .clk(clk),
     .rst(rst),
-    .note_value(memory_read_data_note_value_output),
-    .duration_value(memory_data_duration_value_output),
+    .note_value(note_value),
+    .duration_value(duration_value),
+    .comfirm_button(comfirm_button),
 
     .key_on(auto_key_on),// is buzzer work
     .key(auto_key),// note value
