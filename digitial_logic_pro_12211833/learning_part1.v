@@ -9,8 +9,8 @@ module learning_part_1(
     output reg key_on,// is buzzer work
     output reg [3:0] key,// note value
     output reg [4:0] nxt_learning_memory_location
-)
-reg [27:0] counter;
+);
+reg [27:0] counter=1;
 
 always@(posedge rst,posedge clk)
 begin
@@ -22,7 +22,7 @@ begin
         counter<=1;
     end else if(counter!=0) begin
             if(counter<=duration_value) begin counter<=counter+1; key_on<=1; key<=note_value;nxt_learning_memory_location<=nxt_learning_memory_location; end
-            else if(counter<=duration_value+26'd50000000) begin counter<=counter+1; key_on<=0; key<=note_value;nxt_learning_memory_location<=nxt_learning_memory_location; end
+            else if(counter<=(duration_value+26'd50000000)) begin counter<=counter+1; key_on<=0; key<=note_value;nxt_learning_memory_location<=nxt_learning_memory_location; end
             else begin counter<=0; key_on<=0; key<=0;nxt_learning_memory_location<=((nxt_learning_memory_location+1)%25); end 
     end else if(user_input==note_value) begin counter<=counter+1; key_on<=1; key<=note_value;nxt_learning_memory_location<=nxt_learning_memory_location; end
     else begin counter<=counter; key_on<=0; key<=0;nxt_learning_memory_location<=nxt_learning_memory_location; end       
