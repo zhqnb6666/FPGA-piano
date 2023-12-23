@@ -13,9 +13,9 @@ module learning_mode(
     output higher_8_led
 );
 
-wire [4:0] learning_score,
-wire learning_key_on,// is buzzer work
-wire [3:0] learning_key,// note value 
+wire [4:0] learning_score;
+wire learning_key_on;// is buzzer work
+wire [3:0] learning_key;// note value 
 
 learning_part_1 learning_part_1_impl(
     .clk(clk),
