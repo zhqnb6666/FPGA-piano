@@ -14,6 +14,7 @@ module free_mode(
 wire free_key_on;
 assign free_key_on=1'b1;
 wire [3:0] free_key;
+wire useless_higher_8_led;
 assign free_key=user_input; 
 assign higher_8_led=higher_8;
 
@@ -33,7 +34,7 @@ ledControl free_ledModule(
     .playing(free_key_on),
 
     .led_output(led_output),
-    .higher_8_led(higher_8_led)
+    .higher_8_led(useless_higher_8_led)
 );
 
 buzzer free_buzzerModule(
