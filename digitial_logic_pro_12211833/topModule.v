@@ -29,7 +29,7 @@ assign song_select_led_output=song_select_switch;
 assign rst_led_output=rst;
 assign mode_led_output=mode_input;
 
-assign memory_isread=key_input[2]|key_input[1];
+assign memory_isread=(key_input[2]|key_input[1]);
 assign memory_write_data_input=top_0_to_15_note_value;
 assign memory_location={(learning_memory_location[4]&mode_input[2])|(auto_memory_location[4]&mode_input[1]),(learning_memory_location[3]&mode_input[2])|(auto_memory_location[3]&mode_input[1]),(learning_memory_location[2]&mode_input[2])|(auto_memory_location[2]&mode_input[1]),(learning_memory_location[1]&mode_input[2])|(auto_memory_location[1]&mode_input[1]),(learning_memory_location[0]&mode_input[2])|(auto_memory_location[0]&mode_input[1])};
 assign memory_songnum={key_input[7]&song_select_switch,key_input[6]&song_select_switch};
