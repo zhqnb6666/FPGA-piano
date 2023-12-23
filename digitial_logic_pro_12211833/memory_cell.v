@@ -21,7 +21,8 @@ reg [25:0] song2_durations[0:25];
 reg [3:0] song3_notes[0:25];
 reg [25:0] song3_durations[0:25];
 
-initial begin
+always@(posedge rst)
+begin
 
     // "Ode to Joy" melody with varied durations
     song1_notes[0] = 5'd2;  song1_durations[0] = 50000000;  // E
@@ -115,7 +116,7 @@ always @(posedge clk,posedge rst) begin
         read_data_note_value_output <= 4'b0;
         read_data_duration_value_output <= 26'b0;
     end else begin
-    case(song_number)
+    case(songnum)
         2'b01: begin
             read_data_note_value_output <= song1_notes[location];
             read_data_duration_value_output <= song1_durations[location];
