@@ -9,11 +9,11 @@ module auto_mode(
     output buzzer_output,     // Buzzer output high active
     output [6:0] segment_output, // Segment output for the 4 segmemt on the left
     output [1:0] digit_select_output, //determine whether the first segment and the second segment from left are used
-    output higher_8_led;
+    output higher_8_led
 );
 
-wire auto_key_on,// is buzzer work
-wire [3:0] auto_key,// note value 
+wire auto_key_on;// is buzzer work
+wire [3:0] auto_key;// note value 
 
 auto_part_1 auto_part_1_impl(
     .clk(clk),
