@@ -5,7 +5,7 @@ module buzzer (
     input [4:0] key,
     output reg buzzer
 );
-reg [31:0] counter;
+reg [31:0] counter=0;
 reg [31:0] freq [16:0]; 
 
 initial begin
