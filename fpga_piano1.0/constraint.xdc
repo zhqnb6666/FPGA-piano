@@ -84,3 +84,6 @@ set_property IOSTANDARD LVCMOS33 [get_ports {digit_select_output[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {digit_select_output[1]}]
 set_property PACKAGE_PIN G2 [get_ports {digit_select_output[1]}]
 set_property PACKAGE_PIN C2 [get_ports {digit_select_output[0]}]
+
+set_property IOSTANDARD LVCMOS33 [get_ports {note_change_switch}]
+set_property PACKAGE_PIN T5 [get_ports {note_change_switch}]
