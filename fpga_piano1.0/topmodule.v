@@ -7,6 +7,7 @@ module TopModule (
     input mode_switch_button,
     input continue_button,
     input back_button,
+    input note_change_switch,  //c
     output reg [7:0] led_output,
     output reg higher_8_led,
     output reg buzzer_output,
@@ -20,6 +21,155 @@ module TopModule (
 
   // Debounced mode switch
   wire mode_switch;
+   /*cb*/
+  wire [7:0] new_key_input;
+  reg [2:0] note_memory [0:7];
+  assign new_key_input[7]=(key_input[note_memory[7]]);
+  assign new_key_input[6]=(key_input[note_memory[6]]);
+  assign new_key_input[5]=(key_input[note_memory[5]]);
+  assign new_key_input[4]=(key_input[note_memory[4]]);
+  assign new_key_input[3]=(key_input[note_memory[3]]);
+  assign new_key_input[2]=(key_input[note_memory[2]]);
+  assign new_key_input[1]=(key_input[note_memory[1]]);
+  assign new_key_input[0]=(key_input[note_memory[0]]);
+
+
+   
+  reg [2:0] note_change_time; 
+  reg [7:0] last_key_input;
+  reg [7:0] flag;
+  integer i;
+  always @(posedge clk or posedge rst) begin
+      last_key_input<=key_input;
+      if(rst) begin
+          note_memory[0]<=3'd0;
+          note_memory[1]<=3'd1;
+          note_memory[2]<=3'd2;
+          note_memory[3]<=3'd3;
+          note_memory[4]<=3'd4;
+          note_memory[5]<=3'd5;
+          note_memory[6]<=3'd6;
+          note_memory[7]<=3'd7;
+          note_change_time<=3'd7;
+          flag<=8'b0;
+      end else if(note_change_switch) begin
+          if(~flag[7]&&(key_input[7]!=last_key_input[7])) begin
+            note_memory[0]<=note_memory[0];
+            note_memory[1]<=note_memory[1];
+            note_memory[2]<=note_memory[2];
+            note_memory[3]<=note_memory[3];
+            note_memory[4]<=note_memory[4];
+            note_memory[5]<=note_memory[5];
+            note_memory[6]<=note_memory[6];
+            note_memory[7]<=note_change_time;
+            note_change_time<=(note_change_time-1);
+            flag<={1'b1,flag[6],flag[5],flag[4],flag[3],flag[2],flag[1],flag[0]};
+          end else if(~flag[6]&&(key_input[6]!=last_key_input[6])) begin
+            note_memory[0]<=note_memory[0];
+            note_memory[1]<=note_memory[1];
+            note_memory[2]<=note_memory[2];
+            note_memory[3]<=note_memory[3];
+            note_memory[4]<=note_memory[4];
+            note_memory[5]<=note_memory[5];
+            note_memory[7]<=note_memory[7];
+            note_memory[6]<=note_change_time;
+            note_change_time<=(note_change_time-1);
+            flag<={flag[7],1'b1,flag[5],flag[4],flag[3],flag[2],flag[1],flag[0]};
+          end else if(~flag[5]&&(key_input[5]!=last_key_input[5])) begin
+            note_memory[0]<=note_memory[0];
+            note_memory[1]<=note_memory[1];
+            note_memory[2]<=note_memory[2];
+            note_memory[3]<=note_memory[3];
+            note_memory[4]<=note_memory[4];
+            note_memory[6]<=note_memory[6];
+            note_memory[7]<=note_memory[7];
+            note_memory[5]<=note_change_time;
+            note_change_time<=(note_change_time-1);
+            flag<={flag[7],flag[6],1'b1,flag[4],flag[3],flag[2],flag[1],flag[0]};
+          end else if(~flag[4]&&(key_input[4]!=last_key_input[4])) begin
+            note_memory[0]<=note_memory[0];
+            note_memory[1]<=note_memory[1];
+            note_memory[2]<=note_memory[2];
+            note_memory[3]<=note_memory[3];
+            note_memory[5]<=note_memory[5];
+            note_memory[6]<=note_memory[6];
+            note_memory[7]<=note_memory[7];
+            note_memory[4]<=note_change_time;
+            note_change_time<=(note_change_time-1);
+            flag<={flag[7],flag[6],flag[5],1'b1,flag[3],flag[2],flag[1],flag[0]};
+          end else if(~flag[3]&&(key_input[3]!=last_key_input[3])) begin
+            note_memory[0]<=note_memory[0];
+            note_memory[1]<=note_memory[1];
+            note_memory[2]<=note_memory[2];
+            note_memory[4]<=note_memory[4];
+            note_memory[5]<=note_memory[5];
+            note_memory[6]<=note_memory[6];
+            note_memory[7]<=note_memory[7];
+            note_memory[3]<=note_change_time;
+            note_change_time<=(note_change_time-1);
+            flag<={flag[7],flag[6],flag[5],flag[4],1'b1,flag[2],flag[1],flag[0]};
+          end else if(~flag[2]&&(key_input[2]!=last_key_input[2])) begin
+            note_memory[0]<=note_memory[0];
+            note_memory[1]<=note_memory[1];
+            note_memory[3]<=note_memory[3];
+            note_memory[4]<=note_memory[4];
+            note_memory[5]<=note_memory[5];
+            note_memory[6]<=note_memory[6];
+            note_memory[7]<=note_memory[7];
+            note_memory[2]<=note_change_time;
+            note_change_time<=(note_change_time-1);
+            flag<={flag[7],flag[6],flag[5],flag[4],flag[3],1'b1,flag[1],flag[0]};
+          end else if(~flag[1]&&(key_input[1]!=last_key_input[1])) begin
+            note_memory[0]<=note_memory[0];
+            note_memory[2]<=note_memory[2];
+            note_memory[3]<=note_memory[3];
+            note_memory[4]<=note_memory[4];
+            note_memory[5]<=note_memory[5];
+            note_memory[6]<=note_memory[6];
+            note_memory[7]<=note_memory[7];
+            note_memory[1]<=note_change_time;
+            note_change_time<=(note_change_time-1);
+            flag<={flag[7],flag[6],flag[5],flag[4],flag[3],flag[2],1'b1,flag[0]};
+          end else if(~flag[0]&&(key_input[0]!=last_key_input[0])) begin
+            note_memory[1]<=note_memory[1];
+            note_memory[2]<=note_memory[2];
+            note_memory[3]<=note_memory[3];
+            note_memory[4]<=note_memory[4];
+            note_memory[5]<=note_memory[5];
+            note_memory[6]<=note_memory[6];
+            note_memory[7]<=note_memory[7];
+            note_memory[0]<=note_change_time;
+            note_change_time<=(note_change_time-1);
+            flag<={flag[7],flag[6],flag[5],flag[4],flag[3],flag[2],flag[1],1'b1};
+          end else begin
+            note_memory[0]<=note_memory[0];
+            note_memory[1]<=note_memory[1];
+            note_memory[2]<=note_memory[2];
+            note_memory[3]<=note_memory[3];
+            note_memory[4]<=note_memory[4];
+            note_memory[5]<=note_memory[5];
+            note_memory[6]<=note_memory[6];
+            note_memory[7]<=note_memory[7];
+            note_change_time<=note_change_time;
+            flag<=flag;
+          end
+      end else begin
+          note_memory[0]<=note_memory[0];
+          note_memory[1]<=note_memory[1];
+          note_memory[2]<=note_memory[2];
+          note_memory[3]<=note_memory[3];
+          note_memory[4]<=note_memory[4];
+          note_memory[5]<=note_memory[5];
+          note_memory[6]<=note_memory[6];
+          note_memory[7]<=note_memory[7];
+          note_change_time<=3'd7;
+          flag<=8'b0;
+      end
+  end
+
+  /*cf*/  
+
+    
   Debouncer mode_switch_debouncer (
       .clk(clk),
       .reset(rst),
