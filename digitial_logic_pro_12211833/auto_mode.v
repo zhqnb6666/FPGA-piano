@@ -4,6 +4,7 @@ module auto_mode(
     input [3:0] note_value,
     input [25:0] duration_value,
     input comfirm_button,
+    input isvalid,
 
     output [4:0] nxt_auto_memory_location,
     output [7:0] led_output,  // 8 big LED from F6 to K2 
@@ -13,8 +14,10 @@ module auto_mode(
     output higher_8_led
 );
 
-wire auto_key_on;// is buzzer work
+wire buzzer_auto_key_on;// is buzzer work
 wire [3:0] auto_key;// note value 
+wire auto_key_on;
+assign auto_key_on=1;
 
 auto_part_1 auto_part_1_impl(
     .clk(clk),
@@ -22,8 +25,9 @@ auto_part_1 auto_part_1_impl(
     .note_value(note_value),
     .duration_value(duration_value),
     .comfirm_button(comfirm_button),
+    .isvalid(isvalid),
 
-    .key_on(auto_key_on),// is buzzer work
+    .key_on(buzzer_auto_key_on),// is buzzer work
     .key(auto_key),// note value
     .nxt_auto_memory_location(nxt_auto_memory_location)
 );
@@ -31,7 +35,7 @@ auto_part_1 auto_part_1_impl(
 DisplayCounter auto_displayCounterModule(
     .clk(clk),
     .rst(rst),
-    .counter_value(auto_key),
+    .counter_value(note_value),
 
     .seg(segment_output),
     .digit_select(digit_select_output)
@@ -40,7 +44,7 @@ DisplayCounter auto_displayCounterModule(
 ledControl auto_ledModule(
     .clk(clk),
     .rst(rst),
-    .current_track(auto_key),
+    .current_track(note_value),
     .playing(auto_key_on),
 
     .led_output(led_output),
@@ -50,8 +54,8 @@ ledControl auto_ledModule(
 buzzer auto_buzzerModule(
     .clk(clk),
     .rst(rst),
-    .key_on(auto_key_on), 
-    .key(auto_key),       
+    .key_on(buzzer_auto_key_on), 
+    .key(note_value),       
 
     .buzzer(buzzer_output)
 );

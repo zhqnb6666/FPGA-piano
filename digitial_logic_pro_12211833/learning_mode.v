@@ -5,6 +5,7 @@ module learning_mode(
     input [25:0] duration_value,
     input [3:0] user_input,// 4 bits for note value(0 to 15) [3:0]
     input comfirm_button,
+    input isvalid,
 
     output [4:0] nxt_learning_memory_location,
     output [7:0] led_output,  // 8 big LED from F6 to K2 
@@ -15,8 +16,10 @@ module learning_mode(
 );
 
 wire [4:0] learning_score;
-wire learning_key_on;// is buzzer work
+wire buzzer_learning_key_on;// is buzzer work
 wire [3:0] learning_key;// note value 
+wire learning_key_on;
+assign learning_key_on=1;
 
 learning_part_1 learning_part_1_impl(
     .clk(clk),
@@ -25,9 +28,10 @@ learning_part_1 learning_part_1_impl(
     .duration_value(duration_value),
     .user_input(user_input),// 4 bits for note value(0 to 15) [3:0]
     .comfirm_button(comfirm_button),
+    .isvalid(isvalid),
 
     .score(learning_score),
-    .key_on(learning_key_on),// is buzzer work
+    .key_on(buzzer_learning_key_on),// is buzzer work
     .key(learning_key),// note value
     .nxt_learning_memory_location(nxt_learning_memory_location)
 );
@@ -44,7 +48,7 @@ DisplayCounter learning_displayCounterModule(
 ledControl learning_ledModule(
     .clk(clk),
     .rst(rst),
-    .current_track(learning_key),
+    .current_track(note_value),
     .playing(learning_key_on),
 
     .led_output(led_output),
@@ -54,8 +58,8 @@ ledControl learning_ledModule(
 buzzer learning_buzzerModule(
     .clk(clk),
     .rst(rst),
-    .key_on(learning_key_on), 
-    .key(learning_key),       
+    .key_on(buzzer_learning_key_on), 
+    .key(note_value),       
 
     .buzzer(buzzer_output)
 );
